@@ -3,7 +3,7 @@ const Koa = require("koa");
 const app = new Koa();
 app.config = config;
 app.service = {};
-//处理中间件
+//加载中间件
 dealMiddleware(app);
 //处理请求
 dealRequest(app);
