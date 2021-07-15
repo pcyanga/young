@@ -54,7 +54,7 @@ export class Test extends youngService {
 }
 ```
 
-## 数据库配置及使用【typeorm】
+## 数据库配置及使用【 [typeorm](https://github.com/typeorm/typeorm)】
 
 ### 配置文件，没有此项配置则启动项目时不加载数据库
 
@@ -77,6 +77,6 @@ module.exports = {
 ### 使用
 
 ```
-this.ctx.orm.实体类名   其他可参考<a href="https://github.com/typeorm/typeorm" target="_blank">typeorm</a>
+this.ctx.orm.实体类名   其他可参考typeorm用法
 this.ctx.orm.User.findOne({ id: 1 });
 ```
