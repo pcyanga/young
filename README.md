@@ -66,7 +66,7 @@ module.exports = {
   },
 };
 ```
-### 使用()
+### 使用
 ```
 this.ctx.orm.实体类名   其他可参考<a href="https://github.com/typeorm/typeorm" target="_blank">typeorm</a>
 this.ctx.orm.User.findOne({ id: 1 });
