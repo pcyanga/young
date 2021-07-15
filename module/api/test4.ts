@@ -1,6 +1,6 @@
-const { youngCore,router, get } = require("young-core");
+import { router, get, youngService } from "young-core";
 @router("/test4")
-export class Test4 extends youngCore {
+export class Test4 extends youngService {
   @get("/page")
   async page() {
     return;
