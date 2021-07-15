@@ -1,5 +1,6 @@
 # young
 基于koa开发，专注于高效的接口框架
+```
 |-- young   
     |-- .gitignore            //忽略文件
     |-- app.ts                //启动文件
@@ -22,6 +23,7 @@
     |   |-- exception.ts
     |   |-- m1.ts
     |-- module                 //业务层代码
+```
 ## 配置文件
 ```
 module.exports = {
@@ -31,7 +33,9 @@ module.exports = {
 ```
 ## 路由及装饰器
 ```
-@router("/test", ["info"])   //表示当前类的路由访问路径以/test开头，默认的加载方法有info,此处默认的全部加载方法包括【list、page、add、update、info、delete】
+//表示当前类的路由访问路径以/test开头，默认的加载方法有info,
+//此处默认的全部加载方法包括【list、page、add、update、info、delete】
+@router("/test", ["info"])  
 export class Test extends youngService {
   constructor(ctx) {
     super(ctx);
