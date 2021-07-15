@@ -7,6 +7,7 @@
   "scripts": {
     "start": "pm2 start pm2.json",
     "stop": "pm2 stop young",
+    "restart": "pm2 stop young && pm2 start pm2.json",
     "dev": "nodemon app.ts -env=local"
   },
   "dependencies": {
@@ -17,10 +18,10 @@
     "ts-node": "^10.1.0",
     "typeorm": "^0.2.34",
     "typescript": "^4.3.5",
-    "young-core": "^1.1.5",
+    "young-core": "^1.1.30",
     "young-orm": "^1.1.0"
   },
   "devDependencies": {
-    "@types/node": "^16.3.1"
+    "@types/node": "^16.3.2"
   }
 }
