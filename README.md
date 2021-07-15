@@ -1,5 +1,6 @@
 # young
-基于koa开发，专注于高效的接口框架
+**基于koa，专注于高效的接口开发框架**
+---
 ```
 |-- young   
     |-- .gitignore            //忽略文件
@@ -67,7 +68,7 @@ module.exports = {
 ```
 ### 使用()
 ```
-this.ctx.orm.实体类名   其他可参考[typeorm](https://github.com/typeorm/typeorm)
+this.ctx.orm.实体类名   其他可参考<a href="https://github.com/typeorm/typeorm" target="_blank">typeorm</a>
 this.ctx.orm.User.findOne({ id: 1 });
 ```
 
