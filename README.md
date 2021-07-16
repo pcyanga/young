@@ -1,20 +1,31 @@
 # young
 
 **基于 koa，使用 typescript，专注于高效开发后端接口的 nodejs 框架**
-
+## 开发配置
+### 本地开发 
+使用nodemon进行实时重启，配置文件在 nodemon.js
+```
+npm i nodemon -g
+```
+### 线上部署 
+使用pm2进行后台启动，配置文件在 pm2.js
+```
+npm i pm2 -g
+```
+## 目录结构
 ```
 |-- young
-    |-- .gitignore            //忽略文件
-    |-- app.ts                //启动文件
+    |-- .gitignore             //忽略文件
+    |-- app.ts                 //启动文件
     |-- nodemon.json
     |-- package-lock.json
     |-- package.json
     |-- pm2.json
     |-- tsconfig.json
-    |-- config                //配置文件
-    |   |-- config.default.ts
-    |   |-- config.local.ts
-    |   |-- config.prod.ts
+    |-- config                 //配置文件
+    |   |-- config.default.ts  //通用配置文件
+    |   |-- config.local.ts    //本地配置文件
+    |   |-- config.prod.ts     //线上配置文件
     |-- entity                 //加载数据库实体文件
     |   |-- photo.ts
     |   |-- api
