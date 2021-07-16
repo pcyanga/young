@@ -66,6 +66,11 @@ export class Test extends youngService {
   constructor(ctx) {
     super(ctx);
     this.entity = "Photo";   //如果需要使用快速方法，需要指定实体
+    this.searchOption.fieldEq = ["filename"]; //字段全匹配
+    this.searchOption.keywords = ["name"]; //字段模糊匹配
+    this.searchOption.order.id = "desc" //加入默认排序，在前端排序之后 前端排序传值为 order:{"createTime":"desc","id":"asc"}
+    this.searchOption.page = 1 //指定页数
+    this.searchOption.size = 10 //指定页长度
   }
   @get("/page")              //表示指定路由为/test/page,映射的方法为page
   async page() {
@@ -105,7 +110,7 @@ const data = await this.sql("select * from user where id = ?",[1]);
 
 ```
 
-## redis 配置及使用
+## redis 配置及使用【<a href="https://github.com/luin/ioredis" target="_blank">ioredis</a>】
 
 ### 配置
 
