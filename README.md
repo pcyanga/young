@@ -1,18 +1,27 @@
 # young
 
 **基于 koa，使用 typescript，专注于高效开发后端接口的 nodejs 框架**
+
 ## 开发配置
-### 本地开发 
-使用nodemon进行实时重启，配置文件在 nodemon.js
+
+### 本地开发
+
+使用 nodemon 进行实时重启，配置文件在 nodemon.js
+
 ```
 npm i nodemon -g
 ```
-### 线上部署 
-使用pm2进行后台启动，配置文件在 pm2.js
+
+### 线上部署
+
+使用 pm2 进行后台启动，配置文件在 pm2.js
+
 ```
 npm i pm2 -g
 ```
+
 ## 目录结构
+
 ```
 |-- young
     |-- .gitignore             //忽略文件
@@ -93,5 +102,34 @@ this.ctx.orm.实体类名   其他可参考typeorm用法
 this.ctx.orm.User.findOne({ id: 1 });
 //原生语句查询
 const data = await this.sql("select * from user where id = ?",[1]);
+
+```
+
+## redis 配置及使用
+
+### 配置
+
+```
+redis: {
+  host: "127.0.0.1",
+  port: 6379,
+}
+```
+
+### 使用
+
+```
+this.app.redis.get("appData"))
+```
+
+## 通用类使用
+
+1、通用类会在项目启动时默认加载
+2、通用类统一放在根目录/comm 下
+3、调用方法
+
+```
+//helper为类名，sleep为方法
+this.app.comm.helper.sleep(2000)
 
 ```
