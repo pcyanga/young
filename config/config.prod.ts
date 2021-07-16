@@ -10,10 +10,5 @@ module.exports = {
     synchronize: true,
     logging: false,
     filePath: path.join(__dirname, "../entity"),
-  },
-  redis: {
-    cluster: [],
-    host: "127.0.0.1",
-    port: 6379,
-  },
+  }
 };
