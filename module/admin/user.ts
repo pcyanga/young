@@ -1,5 +1,6 @@
 import { router, post, youngService } from "young-core";
 import * as jwt from "jsonwebtoken";
+import * as _ from "lodash";
 @router("/admin/user", ["info"])
 export class AdminUser extends youngService {
   constructor(ctx) {
@@ -34,7 +35,7 @@ export class AdminUser extends youngService {
       id: userId,
     });
     if (!user) throw new Error("用户不存在");
-    delete user.password
+    delete user.password;
     user.roles = await this.ctx.orm.AdminUserRole.find({ userId });
     await this.getUserMenu(user);
     return user;
@@ -50,6 +51,11 @@ export class AdminUser extends youngService {
     const token = jwt.sign(user, secret, { expiresIn });
     return { token, expiresIn };
   }
+  /**
+   * 获取用户菜单
+   * @param user 用户信息
+   * @returns
+   */
   async getUserMenu(user) {
     const exist = await this.app.redis.get(`adminMenu:${user.id}`);
     if (exist) {
@@ -60,13 +66,13 @@ export class AdminUser extends youngService {
       return r.roleId;
     });
     const menu = await this.sql(
-      `select a.id,a.name,a.pid,a.type from admin_menu a
+      `select a.id,a.name,a.pid,a.type,a.key from admin_menu a
     left join admin_role_menu b on a.id = b.menuId 
     where b.roleId in (?) order by sort desc`,
       [roleIds]
     );
-    user.menu = this.app.service.AdminMenu.arrange(menu);
-    this.app.redis.set(`adminMenu:${user.id}`, JSON.stringify(user.menu));
+    user.menu = this.app.service.AdminMenu.arrange(_.cloneDeep(menu));
+    this.app.redis.set(`adminMenu:${user.id}`, JSON.stringify(menu));
     return user;
   }
 }

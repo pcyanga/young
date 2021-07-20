@@ -23,6 +23,7 @@ export class AdminMenu extends youngService {
     const menuRoot = menu.filter((m) => {
       return m.pid == 0;
     });
+    //递归遍历
     function get(m) {
       m.children = [];
       menu.forEach((me) => {
