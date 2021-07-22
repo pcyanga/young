@@ -1,7 +1,7 @@
 import { router, youngService } from "young-core";
 import { In } from "typeorm";
 @router("/admin/role", ["info", "page", "list", "add", "update", "delete"])
-export class AdminRole extends youngService {
+export default class AdminRole extends youngService {
   constructor(ctx) {
     super(ctx);
     this.entity = "AdminRole";
@@ -12,10 +12,10 @@ export class AdminRole extends youngService {
    */
   async add() {
     const { menuIds = [] } = this.body;
-    await this.ctx.orm.AdminRole.insert(this.body);
+    await this.app.orm.AdminRole.insert(this.body);
     if (menuIds.length) {
       menuIds.forEach((mid) => {
-        this.ctx.orm.AdminRoleMenu.insert({
+        this.app.orm.AdminRoleMenu.insert({
           roleId: this.body.id,
           menuId: mid,
         });
@@ -30,13 +30,13 @@ export class AdminRole extends youngService {
   async update() {
     const { menuIds = [] } = this.body;
     delete this.body.menuId;
-    await this.ctx.orm.AdminRole.update(
+    await this.app.orm.AdminRole.update(
       { id: this.body.id },
       { rolename: this.body.rolename }
     );
     if (menuIds.length) {
       //先查出所有旧的
-      const old = await this.ctx.orm.AdminRoleMenu.find({
+      const old: any = await this.app.orm.AdminRoleMenu.find({
         roleId: this.body.id,
       });
       menuIds.forEach(async (mid) => {
@@ -49,7 +49,7 @@ export class AdminRole extends youngService {
         });
         //新的则插入
         if (repeat === false) {
-          this.ctx.orm.AdminRoleMenu.insert({
+          this.app.orm.AdminRoleMenu.insert({
             roleId: this.body.id,
             menuId: mid,
           });
@@ -64,7 +64,7 @@ export class AdminRole extends youngService {
           return o.id;
         });
       if (deleteArray.length)
-        this.ctx.orm.AdminRoleMenu.delete({ id: In(deleteArray) });
+        this.app.orm.AdminRoleMenu.delete({ id: In(deleteArray) });
     }
     return this.success();
   }
@@ -74,7 +74,7 @@ export class AdminRole extends youngService {
    */
   async delete() {
     super.delete();
-    this.ctx.orm.AdminRoleMenu.delete({
+    this.app.orm.AdminRoleMenu.delete({
       roleId: In(this.body.ids.toString().split(",")),
     });
     return this.success();

@@ -7,6 +7,7 @@ module.exports = async (ctx: any, next: () => void) => {
   try {
     await next();
   } catch (err) {
+    console.log(err);
     let { message } = err;
     ctx.app.log.error([
       `>>>${moment().format("YYYY-MM-DD HH:mm:ss")}:`,

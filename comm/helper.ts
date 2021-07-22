@@ -1,4 +1,4 @@
-export class helper {
+export default class helper {
   /**
    * 休眠
    * @param ms

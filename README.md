@@ -103,8 +103,8 @@ module.exports = {
 
 ```
 //使用实体查询
-this.ctx.orm.实体类名   其他可参考typeorm用法
-this.ctx.orm.User.findOne({ id: 1 });
+this.app.orm.实体类名   其他可参考typeorm用法
+this.app.orm.User.findOne({ id: 1 });
 //原生语句查询
 const data = await this.sql("select * from user where id = ?",[1]);
 

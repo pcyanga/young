@@ -1,7 +1,7 @@
 import { Base } from "young-core";
 import { Entity, Column } from "typeorm";
 @Entity({ name: "photo" })
-export class Photo extends Base {
+export default class Photo extends Base {
   @Column({
     length: 1001,
   })
