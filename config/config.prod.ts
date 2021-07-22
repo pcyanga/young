@@ -6,7 +6,7 @@ module.exports = {
     port: 3306,
     username: "test2",
     password: "PbcwNMDia3rdbTdS",
-    database: "young",
+    database: "test2",
     synchronize: false,
     logging: false,
     filePath: path.join(__dirname, "../entity"),
