@@ -6,18 +6,14 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "inlineSourceMap":true,
+    "inlineSourceMap": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "stripInternal": true,
-    "pretty": true,
     "declaration": true,
-    "typeRoots": [ "./typings", "./node_modules/@types"],
     "outDir": "dist",
+    "strict": false,
+    "types": ["node"]
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "test"
-  ]
+  "exclude": ["dist", "node_modules"]
 }

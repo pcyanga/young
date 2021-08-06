@@ -1,8 +1,14 @@
-const { youngCore, router, get } = require("young-core");
-@router("/api/test", ["page"])
-export class Test extends youngCore {
-  @get("/page")
-  async page() {
-    return (await this.ctx.orm.User.findOne({ id: 1 })) || {};
+import { get, router, youngService } from "young-core";
+
+@router("/api/user", ["info", "page"])
+export default class Test extends youngService {
+  constructor(ctx) {
+    super(ctx);
+    this.entity = "Photo";
+    this.searchOption.fieldStatus.id = 1;
+  }
+  @get("test")
+  async test(params) {
+    return params;
   }
 }

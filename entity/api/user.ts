@@ -1,7 +1,7 @@
-import { Base } from "young-orm";
+import { Base } from "young-core";
 import { Entity, Column } from "typeorm";
-@Entity({ name: "user" })
-export class User extends Base {
+@Entity({ name: "api_user" })
+export default class ApiUser extends Base {
   @Column({
     length: 100,
   })
