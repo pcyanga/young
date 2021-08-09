@@ -87,6 +87,28 @@ export class Test extends youngService {
 }
 ```
 
+## 中间件
+
+### 在文件夹 middleware 下添加新文件
+
+```
+module.exports = async (ctx: any, next: () => void) => {
+  await next();
+};
+
+```
+
+### 启用中间件
+
+在配置文件下进行修改
+
+```
+module.exports = {
+  middleware: ["adminUser", "exception"], //启用的中间件(文件名)
+}
+
+```
+
 ## 数据库配置及使用【<a href="https://github.com/typeorm/typeorm" target="_blank">typeorm</a>】
 
 ### 配置文件，没有此项配置则启动项目时不加载数据库

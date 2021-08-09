@@ -131,4 +131,21 @@ export default class helper {
     }
     return decodeURIComponent(encStr);
   }
+
+  /**
+   * 生成验证码
+   * @param params 参数
+   * @returns
+   */
+  captcha(params) {
+    const { width = 120, height = 40, noise = 0 } = params;
+    const captcha = require("svg-captcha");
+    const res = captcha.create({
+      width,
+      height,
+      noise,
+      charPreset: "0123456789",
+    });
+    return res;
+  }
 }
