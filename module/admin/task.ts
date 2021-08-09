@@ -18,7 +18,7 @@ export default class Task extends youngService {
       await this.app.task.removeRepeatableByKey(o.key);
     });
     tasks.forEach(async (t) => {
-      const config = this.getRepeat(t);
+      const config = this.getRepeatConfig(t);
       await this.app.task.add(t, {
         jobId: t.id,
         repeat: config,
@@ -28,7 +28,7 @@ export default class Task extends youngService {
       this.app.log.info(`task [${t.name}] init successfully!`);
     });
   }
-  getRepeat(task) {
+  getRepeatConfig(task) {
     let params: any = { name: `young-${task.id}` };
     if (task.limit) params.limit = task.limit;
     if (task.startDate) params.startDate = task.startDate;
@@ -75,5 +75,44 @@ export default class Task extends youngService {
     } catch (err) {
       this.app.log.info(err);
     }
+  }
+  async add() {
+    await this.app.orm.AdminTask.save(this.body)
+    const config = this.getRepeatConfig(this.body);
+    await this.app.task.add(this.body, {
+      jobId: this.body.id,
+      repeat: config,
+      removeOnComplete: true,
+      removeOnFail: true,
+    });
+    return this.success()
+  }
+  async update(){
+    await this.app.orm.AdminTask.update({id:this.body.id},this.body)
+    const jobs = await this.app.task.getRepeatableJobs();
+    jobs.forEach((j) => {
+        if (j.id == this.body.id) {
+          this.app.task.removeRepeatableByKey(j.key);
+        }
+    });
+    const config = this.getRepeatConfig(this.body);
+    await this.app.task.add(this.body, {
+      jobId: this.body.id,
+      repeat: config,
+      removeOnComplete: true,
+      removeOnFail: true,
+    });
+    return this.success()
+  }
+  async delete(){
+    const jobs = await this.app.task.getRepeatableJobs();
+    jobs.forEach((j) => {
+      this.body.ids.toString().split(",").forEach(id => {
+        if (j.id == id) {
+          this.app.task.removeRepeatableByKey(j.key);
+        }
+      });
+    });
+    await super.delete()
   }
 }
