@@ -168,3 +168,34 @@ this.app.redis.get("appData"))
 this.app.comm.helper.sleep(2000)
 
 ```
+
+## 队列及任务的使用【<a href="https://github.com/OptimalBits/bull" target="_blank">bull</a>】
+
+这两者都要在启用 redis 的情况下才能使用，所以要先配置 redis
+
+```
+redis: {
+    host: "127.0.0.1",
+    port: 6379,
+  },
+```
+
+### 队列使用
+
+```
+//在文件夹queue下创建队列文件，例test.ts
+import { youngQueue } from "young-core";
+export default class test extends youngQueue {
+  async execute(job, done) {
+    console.log(job.data);
+    done();
+  }
+}
+//在服务层的使用
+const data = {foo: far}
+this.app.queue.test.add(data)
+```
+
+### 任务使用
+
+任务列表存放在 mysql 的表 admin_task,具体可看文件 /module/admin/task
