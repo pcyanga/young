@@ -76,8 +76,10 @@ export default class Task extends youngService {
       this.app.log.info(err);
     }
   }
+
+  //添加
   async add() {
-    await this.app.orm.AdminTask.save(this.body)
+    await this.app.orm.AdminTask.save(this.body);
     const config = this.getRepeatConfig(this.body);
     await this.app.task.add(this.body, {
       jobId: this.body.id,
@@ -85,15 +87,17 @@ export default class Task extends youngService {
       removeOnComplete: true,
       removeOnFail: true,
     });
-    return this.success()
+    return this.success();
   }
-  async update(){
-    await this.app.orm.AdminTask.update({id:this.body.id},this.body)
+
+  //更新
+  async update() {
+    await this.app.orm.AdminTask.update({ id: this.body.id }, this.body);
     const jobs = await this.app.task.getRepeatableJobs();
     jobs.forEach((j) => {
-        if (j.id == this.body.id) {
-          this.app.task.removeRepeatableByKey(j.key);
-        }
+      if (j.id == this.body.id) {
+        this.app.task.removeRepeatableByKey(j.key);
+      }
     });
     const config = this.getRepeatConfig(this.body);
     await this.app.task.add(this.body, {
@@ -102,17 +106,22 @@ export default class Task extends youngService {
       removeOnComplete: true,
       removeOnFail: true,
     });
-    return this.success()
+    return this.success();
   }
-  async delete(){
+
+  //删除
+  async delete() {
     const jobs = await this.app.task.getRepeatableJobs();
     jobs.forEach((j) => {
-      this.body.ids.toString().split(",").forEach(id => {
-        if (j.id == id) {
-          this.app.task.removeRepeatableByKey(j.key);
-        }
-      });
+      this.body.ids
+        .toString()
+        .split(",")
+        .forEach((id) => {
+          if (j.id == id) {
+            this.app.task.removeRepeatableByKey(j.key);
+          }
+        });
     });
-    await super.delete()
+    await super.delete();
   }
 }
