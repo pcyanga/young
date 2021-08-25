@@ -19,7 +19,7 @@
     "svg-captcha": "^1.4.0",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
-    "young-core": "^1.5.17",
+    "young-core": "^1.5.18",
     "young-require-all": "^1.0.0"
   },
   "devDependencies": {
