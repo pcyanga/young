@@ -5,9 +5,9 @@
   "private": true,
   "main": "./app.js",
   "scripts": {
-    "start": "pm2 start pm2.json",
+    "start": "pm2 start pm2.json --watch=false",
     "stop": "pm2 stop young",
-    "restart": "pm2 update young",
+    "restart": "pm2 relaod young",
     "dev": "nodemon app.ts -env=local"
   },
   "dependencies": {
