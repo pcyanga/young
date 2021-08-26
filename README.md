@@ -4,4 +4,4 @@
 
 ![Image text](https://gitee.com/FenDou2014/young/raw/master/logo.svg)
 
-【<a href="http://youngjs.pcyang.cn" target="_blank">在线文档</a>】
+具体可查看【<a href="http://youngjs.pcyang.cn" target="_blank">在线文档</a>】
