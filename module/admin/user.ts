@@ -1,5 +1,4 @@
 import { router, post, youngService } from "young-core";
-import * as jwt from "jsonwebtoken";
 import { In } from "typeorm";
 import * as _ from "lodash";
 @router("/admin/user", ["info", "add", "update", "delete", "page"])
@@ -22,7 +21,7 @@ export default class AdminUser extends youngService {
     );
     //验证密码
     if (pwd != this.body.password) throw new Error("账号或者密码错误");
-    const token = await this.makeToken({
+    const token = await this.ctx.makeUserToken({
       id: user.id,
       nickname: user.nickname,
     });
@@ -33,7 +32,7 @@ export default class AdminUser extends youngService {
    * @returns
    */
   async info() {
-    const userId = this.ctx.adminuser.id;
+    const userId = this.ctx.adminUser.id;
     const user: any = await this.app.orm.AdminUser.findOne({
       id: userId,
     });
@@ -46,17 +45,6 @@ export default class AdminUser extends youngService {
     );
     await this.getUserMenu(user);
     return this.success(user);
-  }
-  /**
-   * 生成token
-   * @param user 用户信息
-   * @returns
-   */
-  async makeToken(user) {
-    const expiresIn = this.app.config.jwt.expires || 3600 * 24 * 7;
-    const secret = this.app.config.jwt.secret || "young";
-    const token = jwt.sign(user, secret, { expiresIn });
-    return this.success({ token, expiresIn });
   }
   /**
    * 获取用户菜单
