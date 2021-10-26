@@ -7,7 +7,7 @@
   "scripts": {
     "start": "pm2 start pm2.json",
     "stop": "pm2 stop young",
-    "restart": "pm2 relaod young",
+    "restart": "pm2 reload young",
     "dev": "nodemon app.ts -env=local"
   },
   "dependencies": {
