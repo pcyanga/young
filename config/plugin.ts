@@ -1,1 +1,3 @@
-module.exports = {};
+module.exports = {
+  doc: "young-swagger-doc",
+};
