@@ -8,8 +8,8 @@ module.exports = async (ctx: any, next: () => void) => {
     secret: "young963456", //token加密串
     expires: 3600 * 24 * 7, //token有效时长
     ignoreUrl: ["admin/user/login"], //忽略检测的路由数组
-    checkUrlPrefix: ["admin", "api"], //需要检测的路由前缀
-    checkRepeatUrl: ["api/test"],
+    checkUrlPrefix: ["admin"], //需要检测的路由前缀
+    checkRepeatUrl: ["api/test", "api-doc"],
   };
   //生成唯一token
   ctx.createUuidToken = function () {
@@ -23,7 +23,6 @@ module.exports = async (ctx: any, next: () => void) => {
   const checkUuidToken = async function (token) {
     const key = `token_uuid:${token}`;
     const exists = await ctx.app.redis.get(key);
-    console.log(exists);
     if (exists) ctx.app.redis.del(key);
     return exists;
   };
