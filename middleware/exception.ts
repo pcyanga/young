@@ -8,7 +8,6 @@ module.exports = async (ctx: any, next: () => void) => {
     await next();
   } catch (err) {
     let { message } = err;
-    console.log(err);
     ctx.app.log.error([`>>>${moment().format("YYYY-MM-DD HH:mm:ss")}:`, err]);
     let match = message.match(/\d+\ /);
     if (match != null) {
