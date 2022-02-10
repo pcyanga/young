@@ -7,4 +7,5 @@ module.exports = {
     title: "Youngjs接口文档",
     version: "1.0.0",
   },
+  socket: true,
 };

@@ -137,7 +137,7 @@ export default class helper {
    * @param params 参数
    * @returns
    */
-  captcha(params) {
+  captcha(params: any = {}) {
     const { width = 120, height = 40, noise = 0 } = params;
     const captcha = require("svg-captcha");
     const res = captcha.create({

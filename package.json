@@ -16,9 +16,9 @@
     "jsonwebtoken": "^8.5.1",
     "onecode-ali-topsdk": "^2.0.6",
     "svg-captcha": "^1.4.0",
-    "ts-node": "^10.1.0",
+    "ts-node": "^10.5.0",
     "typescript": "^4.3.5",
-    "young-core": "^1.7.17",
+    "young-core": "^1.8.6",
     "young-swagger-doc": "^1.0.16"
   },
   "devDependencies": {
