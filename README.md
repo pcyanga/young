@@ -48,12 +48,14 @@ npm i pm2 -g
     |   |-- config.prod.ts     //线上配置文件
     |-- entity                 //加载数据库实体文件
     |   |-- test.ts
-    |-- esindex                //加载ES索引文件
+    |-- esindex                //ES索引文件（可删）
     |   |-- test.ts
     |-- logs                   //日志文件
     |-- middleware             //中间件文件
     |   |-- exception.ts
     |-- module                 //业务层代码
+    |-- queue                  //队列类（可删）
+    |-- socket                 //即时通讯类（可删）
 ```
 
 ## 路由及装饰器
