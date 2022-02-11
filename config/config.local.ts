@@ -1,17 +1,17 @@
 // import * as path from "path";
 module.exports = {
   // typeorm 配置
-  typeorm: {
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "root",
-    database: "young",
-    synchronize: true,
-    logging: false,
-    charset: "utf8mb4",
-  },
+  // typeorm: {
+  //   type: "mysql",
+  //   host: "localhost",
+  //   port: 3306,
+  //   username: "root",
+  //   password: "root",
+  //   database: "young",
+  //   synchronize: true,
+  //   logging: false,
+  //   charset: "utf8mb4",
+  // },
   // redis 配置
   // redis: {
   //   host: "127.0.0.1",
