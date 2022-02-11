@@ -4,6 +4,9 @@ import * as _ from "lodash";
 import { ApiCategory, ApiDoc } from "young-swagger-doc";
 @router("/admin/user", ["info", "add", "update", "delete", "page"])
 @ApiCategory("用户管理")
+/**
+ * 后台用户
+ */
 export default class AdminUser extends youngService {
   constructor(ctx) {
     super(ctx);
@@ -17,12 +20,6 @@ export default class AdminUser extends youngService {
     {
       username: { description: "用户名" },
       password: { description: "密码" },
-      file: {
-        in: "formData",
-        description: "文件",
-        collectionFormat: "multi",
-        type: "file",
-      },
     },
     {
       data: {

@@ -1,6 +1,8 @@
 import { router, youngService } from "young-core";
 import { In } from "typeorm";
+import { ApiCategory } from "young-swagger-doc";
 @router("/admin/role", ["info", "page", "list", "add", "update", "delete"])
+@ApiCategory("角色管理")
 export default class AdminRole extends youngService {
   constructor(ctx) {
     super(ctx);

@@ -17,7 +17,6 @@ export default class userSocket extends youngSocket {
    */
   async data(msg: any, socket: Socket, io) {
     console.log(new Date(), msg);
-    await this.app.comm.helper.sleep(5000);
     return msg;
   }
 }

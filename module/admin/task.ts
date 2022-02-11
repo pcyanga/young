@@ -1,5 +1,7 @@
 import { router, youngService } from "young-core";
 import * as moment from "moment";
+import { ApiCategory } from "young-swagger-doc";
+@ApiCategory("任务管理")
 @router("/admin/task", ["info", "page", "list", "add", "update", "delete"])
 export default class Task extends youngService {
   constructor(ctx) {
