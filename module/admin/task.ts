@@ -75,7 +75,7 @@ export default class Task extends youngService {
         });
       }
     } catch (err) {
-      this.app.log.info(err);
+      this.app.log.info(err.stack);
     }
   }
 

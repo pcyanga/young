@@ -7,8 +7,8 @@ module.exports = async (ctx: any, next: () => void) => {
   try {
     await next();
   } catch (err) {
-    let { message } = err;
-    ctx.app.log.error([`>>>${moment().format("YYYY-MM-DD HH:mm:ss")}:`, err]);
+    let { message, stack } = err;
+    ctx.app.log.error([`>>>${moment().format("YYYY-MM-DD HH:mm:ss")}:`, stack]);
     let match = message.match(/\d+\ /);
     if (match != null) {
       let code = parseInt(match[0]);
