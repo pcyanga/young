@@ -75,13 +75,13 @@ export default class AdminUser extends youngService {
    * @returns
    */
   async getUserMenu(user) {
-    const exist = await this.app.redis.get(`adminMenu:${user.id}`);
-    if (exist) {
-      user.menu = JSON.parse(exist);
-      return user;
-    }
+    // const exist = await this.app.redis.get(`adminMenu:${user.id}`);
+    // if (exist) {
+    //   user.menu = JSON.parse(exist);
+    //   return user;
+    // }
     const menu = await this.sql(
-      `select a.id,a.name,a.pid,a.type,a.key from admin_menu a
+      `select a.id,a.name,a.pid,a.type,a.key,a.icon from admin_menu a
     left join admin_role_menu b on a.id = b.menuId 
     where b.roleId in (?) order by sort desc`,
       [user.roleIds]

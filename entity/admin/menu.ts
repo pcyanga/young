@@ -16,4 +16,7 @@ export default class AdminMenu extends Base {
 
   @Column({ comment: "排序", default: 0 })
   sort: Number;
+
+  @Column({ comment: "图标", length: 100 })
+  icon: string;
 }

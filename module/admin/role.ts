@@ -1,4 +1,4 @@
-import { router, youngService } from "young-core";
+import { get, router, youngService } from "young-core";
 import { In } from "typeorm";
 import { ApiCategory } from "young-swagger-doc";
 @router("/admin/role", ["info", "page", "list", "add", "update", "delete"])
@@ -7,6 +7,7 @@ export default class AdminRole extends youngService {
   constructor(ctx) {
     super(ctx);
     this.entity = "AdminRole";
+    this.searchOption.keywords = ["rolename"];
   }
   /**
    * 新增角色
@@ -68,6 +69,7 @@ export default class AdminRole extends youngService {
       if (deleteArray.length)
         this.app.orm.AdminRoleMenu.delete({ id: In(deleteArray) });
     }
+    await this.app.redis.del(`adminMenu:${this.ctx.adminUser.id}`);
     return this.success();
   }
   /**
@@ -75,10 +77,21 @@ export default class AdminRole extends youngService {
    * @returns
    */
   async delete() {
-    super.delete();
+    await super.delete();
     this.app.orm.AdminRoleMenu.delete({
       roleId: In(this.body.ids.toString().split(",")),
     });
     return this.success();
+  }
+
+  @get("/getRoleMenu")
+  async getRoleMenu() {
+    const { roleId } = this.query;
+    const data = await this.app.orm.AdminRoleMenu.find({ roleId });
+    return this.success(
+      data.map((d) => {
+        return d.menuId;
+      })
+    );
   }
 }

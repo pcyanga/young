@@ -9,9 +9,21 @@ export default class AdminMenu extends youngService {
   }
   async list() {
     const menu = await this.sql(
-      "select id,name,pid,type,sort from admin_menu order by sort desc"
+      "select *,name as label from admin_menu order by sort desc"
     );
-    return this.arrange(menu);
+    return this.success(this.arrange(menu));
+  }
+
+  async delete() {
+    await super.delete();
+    await this.app.redis.del(`adminMenu:${this.ctx.adminUser.id}`);
+    return this.success();
+  }
+
+  async update() {
+    await super.update();
+    await this.app.redis.del(`adminMenu:${this.ctx.adminUser.id}`);
+    return this.success();
   }
 
   /**
