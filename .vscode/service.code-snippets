@@ -4,7 +4,7 @@
     "body": [
       "import { router, youngService } from \"young-core\";",
       "@router(\"/test\", [\"info\", \"page\", \"list\", \"add\", \"update\", \"delete\"])",
-      "export class Test extends youngService {",
+      "export default class Test extends youngService {",
       "  constructor(ctx) {",
       "    super(ctx);",
       "    this.entity = \"Test\";",
