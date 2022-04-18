@@ -7,7 +7,7 @@
       "interpreter_args": "-P ../ -r tsconfig-paths/register",
       "script": "./app.ts",
       "exec_mode": "cluster",
-      "instances": 2,
+      "instances": 1,
       "max_memory_restart": "1G",
       "autorestart": true,
       "autoput": "/dev/null",
