@@ -1,7 +1,7 @@
 import { Base } from "young-core";
 import { Entity, Column } from "typeorm";
 @Entity({ name: "admin_task_log" })
-export default class AdminTaskLog extends Base {
+export default class AdminTaskLogEntity extends Base {
   @Column({ comment: "任务名称" })
   taskId: number;
 

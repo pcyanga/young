@@ -2,6 +2,7 @@ import { router, post, youngService } from "young-core";
 import { In } from "typeorm";
 import * as _ from "lodash";
 import { ApiCategory, ApiDoc } from "young-swagger-doc";
+import AdminUserEntity from "../../entity/admin/user";
 @router("/admin/user", ["info", "add", "update", "delete", "page"])
 @ApiCategory("用户管理")
 /**
@@ -10,7 +11,7 @@ import { ApiCategory, ApiDoc } from "young-swagger-doc";
 export default class AdminUser extends youngService {
   constructor(ctx) {
     super(ctx);
-    this.entity = "AdminUser";
+    this.entity = AdminUserEntity;
     this.searchOption.keywords = ["username", "nickname"];
     this.searchOption.fieldEq = ["id"];
   }
@@ -33,7 +34,7 @@ export default class AdminUser extends youngService {
     }
   )
   async login() {
-    const user = await this.app.orm.AdminUser.findOne({
+    const user = await this.app.orm.AdminUserEntity.findOne({
       username: this.body.username,
     });
     if (!user) throw new Error("账号不存在");
@@ -56,16 +57,16 @@ export default class AdminUser extends youngService {
   @ApiDoc("用户信息", {}, { data: { description: "用户信息", type: "object" } })
   async info() {
     const userId = this.ctx.adminUser.id;
-    const user: any = await this.app.orm.AdminUser.findOne({
+    const user: any = await this.app.orm.AdminUserEntity.findOne({
       id: userId,
     });
     if (!user) throw new Error("用户不存在");
     delete user.password;
-    user.roleIds = (await this.app.orm.AdminUserRole.find({ userId })).map(
-      (r) => {
-        return r.roleId;
-      }
-    );
+    user.roleIds = (
+      await this.app.orm.AdminUserRoleEntity.find({ userId })
+    ).map((r) => {
+      return r.roleId;
+    });
     await this.getUserMenu(user);
     return this.success(user);
   }
@@ -99,15 +100,18 @@ export default class AdminUser extends youngService {
       this.body.password,
       this.app.config.passwordStr || "young"
     );
-    const exists = await this.app.orm.AdminUser.findOne({
+    const exists = await this.app.orm.AdminUserEntity.findOne({
       username: this.body.username,
     });
     if (exists) throw new Error("用户名已存在");
-    await this.app.orm.AdminUser.insert(this.body);
+    await this.app.orm.AdminUserEntity.insert(this.body);
     //操作角色
     if (this.body.roleIds) {
       this.body.roleIds.split(",").forEach((roleId) => {
-        this.app.orm.AdminUserRole.insert({ userId: this.body.id, roleId });
+        this.app.orm.AdminUserRoleEntity.insert({
+          userId: this.body.id,
+          roleId,
+        });
       });
     }
     return this.success();
@@ -123,11 +127,11 @@ export default class AdminUser extends youngService {
       this.body.password,
       this.app.config.passwordStr || "young"
     );
-    await this.app.orm.AdminUser.update({ id: this.body.id }, this.body);
+    await this.app.orm.AdminUserEntity.update({ id: this.body.id }, this.body);
     //操作角色
     if (roleIds) {
       //先查出所有旧的
-      const old: any = await this.app.orm.AdminUserRole.find({
+      const old: any = await this.app.orm.AdminUserRoleEntity.find({
         userId: this.body.id,
       });
       //新的插入
@@ -140,7 +144,10 @@ export default class AdminUser extends youngService {
           }
         });
         if (repeat === false) {
-          this.app.orm.AdminUserRole.insert({ userId: this.body.id, roleId });
+          this.app.orm.AdminUserRoleEntity.insert({
+            userId: this.body.id,
+            roleId,
+          });
         }
       });
       //挑选出旧的删除
@@ -152,7 +159,7 @@ export default class AdminUser extends youngService {
           return o.id;
         });
       if (deleteArray.length)
-        this.app.orm.AdminUserRole.delete({ id: In(deleteArray) });
+        this.app.orm.AdminUserRoleEntity.delete({ id: In(deleteArray) });
     }
     //删除redis缓存
     this.app.redis.del(`adminMenu:${this.body.id}`);
@@ -164,7 +171,7 @@ export default class AdminUser extends youngService {
    */
   async delete() {
     super.delete();
-    this.app.orm.AdminUserRole.delete({
+    this.app.orm.AdminUserRoleEntity.delete({
       userId: In(this.body.ids.toString().split(",")),
     });
     return this.success();

@@ -1,7 +1,7 @@
 import { Base } from "young-core";
 import { Entity, Column } from "typeorm";
 @Entity({ name: "admin_task" })
-export default class AdminTask extends Base {
+export default class AdminTaskEntity extends Base {
   @Column({ comment: "任务名称", length: 30 })
   name: String;
 

@@ -15,10 +15,10 @@ export default class AdminRole extends youngService {
    */
   async add() {
     const { menuIds = [] } = this.body;
-    await this.app.orm.AdminRole.insert(this.body);
+    await this.app.orm.AdminRoleEntity.insert(this.body);
     if (menuIds.length) {
       menuIds.forEach((mid) => {
-        this.app.orm.AdminRoleMenu.insert({
+        this.app.orm.AdminRoleMenuEntity.insert({
           roleId: this.body.id,
           menuId: mid,
         });
@@ -33,13 +33,13 @@ export default class AdminRole extends youngService {
   async update() {
     const { menuIds = [] } = this.body;
     delete this.body.menuId;
-    await this.app.orm.AdminRole.update(
+    await this.app.orm.AdminRoleEntity.update(
       { id: this.body.id },
       { rolename: this.body.rolename }
     );
     if (menuIds.length) {
       //先查出所有旧的
-      const old: any = await this.app.orm.AdminRoleMenu.find({
+      const old: any = await this.app.orm.AdminRoleMenuEntity.find({
         roleId: this.body.id,
       });
       menuIds.forEach(async (mid) => {
@@ -52,7 +52,7 @@ export default class AdminRole extends youngService {
         });
         //新的则插入
         if (repeat === false) {
-          this.app.orm.AdminRoleMenu.insert({
+          this.app.orm.AdminRoleMenuEntity.insert({
             roleId: this.body.id,
             menuId: mid,
           });
@@ -67,7 +67,7 @@ export default class AdminRole extends youngService {
           return o.id;
         });
       if (deleteArray.length)
-        this.app.orm.AdminRoleMenu.delete({ id: In(deleteArray) });
+        this.app.orm.AdminRoleMenuEntity.delete({ id: In(deleteArray) });
     }
     await this.app.redis.del(`adminMenu:${this.ctx.adminUser.id}`);
     return this.success();
@@ -78,7 +78,7 @@ export default class AdminRole extends youngService {
    */
   async delete() {
     await super.delete();
-    this.app.orm.AdminRoleMenu.delete({
+    this.app.orm.AdminRoleMenuEntity.delete({
       roleId: In(this.body.ids.toString().split(",")),
     });
     return this.success();
@@ -87,7 +87,7 @@ export default class AdminRole extends youngService {
   @get("/getRoleMenu")
   async getRoleMenu() {
     const { roleId } = this.query;
-    const data = await this.app.orm.AdminRoleMenu.find({ roleId });
+    const data = await this.app.orm.AdminRoleMenuEntity.find({ roleId });
     return this.success(
       data.map((d) => {
         return d.menuId;

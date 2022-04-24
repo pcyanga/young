@@ -14,7 +14,7 @@ export default class Task extends youngService {
     if (!this.app.config.typeorm) {
       this.app.log.warn("config typeorm undefined,task Uninitialized!");
     }
-    const tasks: any = await this.app.orm.AdminTask.find({ status: 1 });
+    const tasks: any = await this.app.orm.AdminTaskEntity.find({ status: 1 });
     const old = await this.app.task.getRepeatableJobs();
     old.forEach(async (o) => {
       await this.app.task.removeRepeatableByKey(o.key);
@@ -48,7 +48,7 @@ export default class Task extends youngService {
     const jobs = await this.app.task.getRepeatableJobs();
     jobs.forEach((j) => {
       if (j.id == job.data.id) {
-        this.app.orm.AdminTask.update(
+        this.app.orm.AdminTaskEntity.update(
           { id: job.data.id },
           { nextRunTime: moment(j.next).format("YYYY-MM-DD HH:mm:ss") }
         );
@@ -65,7 +65,7 @@ export default class Task extends youngService {
         const paramString = tmp[1].split("(")[1].split(")")[0];
         const params = paramString ? JSON.parse(paramString) : "";
         const result = await this.app.service[tmp[0]][method](params);
-        this.app.orm.AdminTaskLog.save({
+        this.app.orm.AdminTaskLogEntity.save({
           taskId: job.data.id,
           result: result
             ? typeof result == "object"
@@ -81,7 +81,7 @@ export default class Task extends youngService {
 
   //添加
   async add() {
-    await this.app.orm.AdminTask.save(this.body);
+    await this.app.orm.AdminTaskEntity.save(this.body);
     const config = this.getRepeatConfig(this.body);
     await this.app.task.add(this.body, {
       jobId: this.body.id,
@@ -94,7 +94,7 @@ export default class Task extends youngService {
 
   //更新
   async update() {
-    await this.app.orm.AdminTask.update({ id: this.body.id }, this.body);
+    await this.app.orm.AdminTaskEntity.update({ id: this.body.id }, this.body);
     const jobs = await this.app.task.getRepeatableJobs();
     jobs.forEach((j) => {
       if (j.id == this.body.id) {
