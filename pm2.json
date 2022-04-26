@@ -12,7 +12,7 @@
       "autorestart": true,
       "autoput": "/dev/null",
       "merge_logs": false,
-      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "log_date_format": "",
       "error": "./logs/err.log",
       "output": "./logs/out.log",
       "source_map_support": false,
