@@ -1,0 +1,16 @@
+{
+  "service": {
+    "prefix": "queue",
+    "body": [
+      "import { youngQueue } from \"young-core\";",
+      "",
+      "export default class test extends youngQueue {",
+      "  async execute(job, done) {",
+      "    console.log(job.data);",
+      "    done();",
+      "  }",
+      "}"
+    ],
+    "description": "queue代码实例"
+  }
+}

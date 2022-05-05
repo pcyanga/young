@@ -4,6 +4,7 @@
     "body": [
       "import { Base } from \"young-core\";",
       "import { Entity, Column } from \"typeorm\";",
+      "//测试",
       "@Entity({ name: \"test\" })",
       "export default class Test extends Base {",
       "  @Column({ length: 20 })",
