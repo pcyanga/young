@@ -2,7 +2,7 @@
   "service": {
     "prefix": "service",
     "body": [
-      "import { router, youngService } from \"young-core\";",
+      "import { router, youngService } from \"@youngjs/core\";",
       "//测试",
       "@router(\"/test\", [\"info\", \"page\", \"list\", \"add\", \"update\", \"delete\"])",
       "export default class Test extends youngService {",

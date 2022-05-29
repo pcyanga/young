@@ -1,3 +1,3 @@
 module.exports = {
-  doc: "young-swagger-doc",
+  doc: "@youngjs/swagger-doc",
 };

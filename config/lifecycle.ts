@@ -1,4 +1,4 @@
-import { Application } from "young-core";
+import { Application } from "@youngjs/core";
 //启动自定义
 export default class appBoot {
   before(app: Application) {

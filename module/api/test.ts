@@ -1,17 +1,18 @@
-import { get, router, youngService } from "young-core";
-import { ApiCategory } from "young-swagger-doc";
+import { get, router, youngService } from "@youngjs/core";
+import { ApiCategory } from "@youngjs/swagger-doc";
 import ApiTestEntity from "../../entity/test";
 @ApiCategory("测试")
-@router("/test", ["info", "page"])
+@router("/test", ["info", "page", "add", "delete", "update", "list"])
 export default class Test extends youngService {
   constructor(ctx) {
     super(ctx);
     this.entity = ApiTestEntity;
+    this.searchOption.fieldEq = ["id"]
   }
 
   //sql分页实例
   @get("testpage")
-  async page() {
+  async page2() {
     let params = [];
     let sql = `select * from test where 1 = 1 `;
     if (this.body.name) {

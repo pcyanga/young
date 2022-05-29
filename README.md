@@ -124,7 +124,7 @@ young 的生命周期与 koa 是一致的，这里，我们提取出两个周期
 具体配置在 config/lifecycle.ts 里面
 
 ```
-import { Application } from "young-core";
+import { Application } from "@youngjs/core";
 //启动自定义
 export default class appBoot {
   before(app: Application) {
@@ -280,7 +280,7 @@ redis: {
 
 ```
 //在文件夹queue下创建队列文件，例test.ts
-import { youngQueue } from "young-core";
+import { youngQueue } from "@youngjs/core";
 export default class test extends youngQueue {
   async execute(job, done) {
     console.log(job.data);

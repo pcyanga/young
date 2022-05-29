@@ -1,10 +1,10 @@
-import { router, post, youngService } from "young-core";
+import { router, post, youngService } from "@youngjs/core";
 import { In } from "typeorm";
 import * as _ from "lodash";
-import { ApiCategory, ApiDoc } from "young-swagger-doc";
+// import { ApiCategory, ApiDoc } from "@youngjs/swagger-doc";
 import AdminUserEntity from "../../entity/admin/user";
 @router("/admin/user", ["info", "add", "update", "delete", "page"])
-@ApiCategory("用户管理")
+// @ApiCategory("用户管理")
 /**
  * 后台用户
  */
@@ -16,23 +16,23 @@ export default class AdminUser extends youngService {
     this.searchOption.fieldEq = ["id"];
   }
   @post("/login")
-  @ApiDoc(
-    "登录",
-    {
-      username: { description: "用户名" },
-      password: { description: "密码" },
-    },
-    {
-      data: {
-        type: "object",
-        description: "响应参数",
-        items: {
-          token: { description: "token", type: "string" },
-          exprireIn: { description: "有效时长", type: "integer" },
-        },
-      },
-    }
-  )
+  // @ApiDoc(
+  //   "登录",
+  //   {
+  //     username: { description: "用户名" },
+  //     password: { description: "密码" },
+  //   },
+  //   {
+  //     data: {
+  //       type: "object",
+  //       description: "响应参数",
+  //       items: {
+  //         token: { description: "token", type: "string" },
+  //         exprireIn: { description: "有效时长", type: "integer" },
+  //       },
+  //     },
+  //   }
+  // )
   async login() {
     const user = await this.app.orm.AdminUserEntity.findOne({
       username: this.body.username,
@@ -54,7 +54,7 @@ export default class AdminUser extends youngService {
    * 用户详情
    * @returns
    */
-  @ApiDoc("用户信息", {}, { data: { description: "用户信息", type: "object" } })
+  // @ApiDoc("用户信息", {}, { data: { description: "用户信息", type: "object" } })
   async info() {
     const userId = this.ctx.adminUser.id;
     const user: any = await this.app.orm.AdminUserEntity.findOne({

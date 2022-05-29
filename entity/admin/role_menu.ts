@@ -1,4 +1,4 @@
-import { Base } from "young-core";
+import { Base } from "@youngjs/core";
 import { Entity, Column, Index } from "typeorm";
 @Entity({ name: "admin_role_menu" })
 export default class AdminRoleMenuEntity extends Base {

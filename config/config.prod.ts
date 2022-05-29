@@ -5,7 +5,7 @@ module.exports = {
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "root",
+    password: "pcyang",
     database: "young",
     synchronize: false,
     logging: false,

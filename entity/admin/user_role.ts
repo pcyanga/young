@@ -1,4 +1,4 @@
-import { Base } from "young-core";
+import { Base } from "@youngjs/core";
 import { Entity, Column, Index } from "typeorm";
 @Entity({ name: "admin_user_role" })
 export default class AdminUserRoleEntity extends Base {

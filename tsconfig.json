@@ -10,10 +10,15 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "stripInternal": true,
-    "declaration": true,
-    "outDir": "dist",
+    "declaration": false,
+    "outDir": "./dist",
     "strict": false,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

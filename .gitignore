@@ -4,3 +4,4 @@ yarn.lock
 logs/
 typings
 swagger.json
+dist/

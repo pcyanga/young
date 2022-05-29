@@ -1,2 +1,2 @@
-import { young } from "young-core";
+import { young } from "@youngjs/core";
 young();

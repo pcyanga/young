@@ -1,4 +1,4 @@
-import { socketEvent, youngSocket } from "young-core";
+import { socketEvent, youngSocket } from "@youngjs/core";
 import { Socket } from "socket.io";
 
 export default class userSocket extends youngSocket {
